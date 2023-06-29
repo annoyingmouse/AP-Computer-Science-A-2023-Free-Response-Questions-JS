@@ -3,13 +3,67 @@
   <head>
     <meta charset="UTF-8">
     <title>3</title>
+    <p>Open the developer tools</p>
   </head>
   <body>
     <h1>3</h1>
     <script>
       (()=>{
-        
-
+        class WeatherData{
+          constructor(){
+            this.data = []
+          }
+          addData(data){
+            this.data.push(data)
+          }
+          addDataArray(data){
+            data.forEach((data)=>{
+              this.addData(data)
+            })
+          }
+          removeData(data){
+            this.data = []
+          }
+          cleanData(lower, upper){
+            this.data = this.data.filter((data)=>{
+              return data >= lower && data <= upper
+            })
+          }
+          longestHeatWave(threshold){
+            let longest = 0
+            let current = 0
+            for(let i = 0; i < this.data.length; i++){
+              if(this.data[i] >= threshold){
+                current++
+              }else{
+                if(current > longest){
+                  longest = current
+                }
+                current = 0
+              }
+            }
+            return longest
+          }
+        }
+        /**
+         * Test 1
+         */
+        console.info("Test 1")
+        const weatherData = new WeatherData()
+        console.info("weatherData.addDataArray([99.1, 142, 85, 85.1, 84.6, 94.3, 124.9, 98, 101, 102.5])")
+        weatherData.addDataArray([99.1, 142, 85, 85.1, 84.6, 94.3, 124.9, 98, 101, 102.5])
+        console.info("weatherData.cleanData(85, 120)")
+        weatherData.cleanData(85, 120)
+        console.log('weatherData.data.toString() === "99.1,85,85.1,94.3,98,101,102.5"', weatherData.data.toString() === "99.1,85,85.1,94.3,98,101,102.5")
+        /**
+         * Test 2
+         */
+        console.info("Test 2")
+        weatherData.removeData()
+        console.info("weatherData.addDataArray([100.5, 98.5, 102, 103.9, 87.5, 105.2, 90.3, 94.8, 109.1, 102.1, 107.4, 93.2])")
+        weatherData.addDataArray([100.5, 98.5, 102, 103.9, 87.5, 105.2, 90.3, 94.8, 109.1, 102.1, 107.4, 93.2])
+        console.log("weatherData.longestHeatWave(100.5) === 3", weatherData.longestHeatWave(100.5) === 3)
+        console.log("weatherData.longestHeatWave(95.2) === 4", weatherData.longestHeatWave(95.2) === 4)
       })()
     </script>
   </body>

@@ -6,6 +6,7 @@
   </head>
   <body>
     <h1>2</h1>
+    <p>Open the developer tools</p>
     <script>
       (()=>{
         class Sign {
@@ -25,6 +26,7 @@
         /**
          * Test 1
          */
+        console.info("Test 1")
         console.info('new Sign("ABC222DE", 3)')
         const sign1 = new Sign("ABC222DE", 3)
         console.log("sign1.numberOfLines() === 3", sign1.numberOfLines() === 3)
@@ -32,6 +34,7 @@
         /**
          * Test 2
          */
+        console.info("Test 2")
         console.info('new Sign("ABCD", 10)')
         const sign2 = new Sign("ABCD", 10)
         console.log("sign2.numberOfLines() === 1", sign2.numberOfLines() === 1)
@@ -39,6 +42,7 @@
         /**
          * Test 3
          */
+        console.info("Test 3")
         console.info('new Sign("ABCDEF", 6)')
         const sign3 = new Sign("ABCDEF", 6)
         console.log("sign3.numberOfLines() === 1", sign3.numberOfLines() === 1)
@@ -46,6 +50,7 @@
         /**
          * Test 4
          */
+        console.info("Test 4")
         console.info('new Sign("", 4)')
         const sign4 = new Sign("", 4)
         console.log("sign4.numberOfLines() === 0", sign4.numberOfLines() === 0)
@@ -53,6 +58,7 @@
         /**
          * Test 5
          */
+        console.info("Test 5")
         console.info('new Sign("AB_CD_EF", 2)')
         const sign5 = new Sign("AB_CD_EF", 2)
         console.log("sign5.numberOfLines() === 4", sign5.numberOfLines() === 4)
