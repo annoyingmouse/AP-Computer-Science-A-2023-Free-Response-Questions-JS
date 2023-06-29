@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>2</title>
+  </head>
+  <body>
+    <h1>2</h1>
+    <script>
+      (()=>{
+        class Sign {
+          constructor(str, width){
+            this.str = str
+            this.width = width
+            this.regex = new RegExp(`.{1,${this.width}}`, 'g')
+            this.lines = this.str.match(this.regex) ?? []
+          }
+          numberOfLines() {
+            return this.lines.length
+          }
+          getLines() {
+            return this.lines.length === 0 ? null : this.lines.join(';')
+          }
+        }
+        /**
+         * Test 1
+         */
+        console.info('new Sign("ABC222DE", 3)')
+        const sign1 = new Sign("ABC222DE", 3)
+        console.log("sign1.numberOfLines() === 3", sign1.numberOfLines() === 3)
+        console.log('sign1.getLines() === "ABC;222;DE"', sign1.getLines() === "ABC;222;DE")
+        /**
+         * Test 2
+         */
+        console.info('new Sign("ABCD", 10)')
+        const sign2 = new Sign("ABCD", 10)
+        console.log("sign2.numberOfLines() === 1", sign2.numberOfLines() === 1)
+        console.log('sign2.getLines() === "ABCD"', sign2.getLines() === "ABCD")
+        /**
+         * Test 3
+         */
+        console.info('new Sign("ABCDEF", 6)')
+        const sign3 = new Sign("ABCDEF", 6)
+        console.log("sign3.numberOfLines() === 1", sign3.numberOfLines() === 1)
+        console.log('sign3.getLines() === "ABCDEF"', sign3.getLines() === "ABCDEF")
+        /**
+         * Test 4
+         */
+        console.info('new Sign("", 4)')
+        const sign4 = new Sign("", 4)
+        console.log("sign4.numberOfLines() === 0", sign4.numberOfLines() === 0)
+        console.log('sign4.getLines() === null', sign4.getLines() === null)
+        /**
+         * Test 5
+         */
+        console.info('new Sign("AB_CD_EF", 2)')
+        const sign5 = new Sign("AB_CD_EF", 2)
+        console.log("sign5.numberOfLines() === 4", sign5.numberOfLines() === 4)
+        console.log('sign5.getLines() === "AB;_C;D_;EF"', sign5.getLines() === "AB;_C;D_;EF")
+      })()
+    </script>
+  </body>
+</html>

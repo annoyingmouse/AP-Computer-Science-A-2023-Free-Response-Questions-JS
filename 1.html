@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>1</title>
+  </head>
+  <body>
+    <h1>1</h1>
+    <script>
+      (()=>{
+        const fillMinutes = (minutes) => {
+          const arr = []
+          for (let i = 0; i < minutes; i++) {
+            arr.push(0)
+          }
+          return arr
+        }
+        class AppointmentBook{
+          constructor(){
+            this.periods = [
+              fillMinutes(60),
+              fillMinutes(60),
+              fillMinutes(60),
+              fillMinutes(60),
+              fillMinutes(60),
+              fillMinutes(60),
+              fillMinutes(60),
+              fillMinutes(60),
+              fillMinutes(60)
+            ]
+          }
+          isMinuteFree(period, minute){
+            return this.periods[period][minute] === 0
+          }
+          resetAvailability(){
+            for(let period = 0; period < 9; period++){
+              for(let minute = 0; minute < 60; minute++){
+                this.periods[period][minute] = 0
+              }
+            }
+          }
+          reserveBlock(period, startMinute, duration){
+            for(let i = 0; i < duration; i++){
+              this.periods[period - 1][startMinute + i] = 1
+            }
+          }
+          findFreeBlock(period, duration){
+            for(let minute = 0; minute < 60; minute++){
+              if(this.isMinuteFree(period - 1, minute)){
+                let freeMinutes = 0
+                for(let i = minute; i < 60; i++){
+                  if(this.isMinuteFree(period - 1, i)){
+                    freeMinutes++
+                  }else{
+                    break
+                  }
+                }
+                if(freeMinutes >= duration){
+                  return minute
+                }
+              }
+            }
+            return -1
+          }
+          makeAppointment(startPeriod, endPeriod, duration){
+            for(let period = startPeriod; period <= endPeriod; period++){
+              const startMinute = this.findFreeBlock(period, duration)
+              if(startMinute === -1){
+                continue
+              }
+              this.reserveBlock(period, startMinute, duration)
+              return true
+            }
+            return false
+          } 
+        }
+        const appointmentBook = new AppointmentBook()
+        /**
+         * Test 1
+         */
+        appointmentBook.reserveBlock(2, 0, 10)
+        appointmentBook.reserveBlock(2, 15, 15)
+        appointmentBook.reserveBlock(2, 45, 5)
+        console.log('findFreeBlock(2, 15)', appointmentBook.findFreeBlock(2, 15) === 30) // 30
+        console.log('findFreeBlock(2, 5)', appointmentBook.findFreeBlock(2, 5) === 10) // 10
+        console.log('findFreeBlock(2, 9)', appointmentBook.findFreeBlock(2, 9) === 30) // 30
+        console.log('findFreeBlock(2, 20)', appointmentBook.findFreeBlock(2, 20) === -1) // -1
+        appointmentBook.resetAvailability()
+        /**
+         * Test 2
+         */
+        appointmentBook.reserveBlock(2, 0, 25)
+        appointmentBook.reserveBlock(2, 30, 30)
+        appointmentBook.reserveBlock(3, 15, 26)
+        appointmentBook.reserveBlock(4, 0, 5)
+        appointmentBook.reserveBlock(4, 30, 14)
+        console.log('makeAppointment(2, 4, 22)', appointmentBook.makeAppointment(2, 4, 22) === true) // true
+        console.log('makeAppointment(3, 4, 3)', appointmentBook.makeAppointment(3, 4, 3) === true) // true
+        console.log('makeAppointment(2, 4, 30)', appointmentBook.makeAppointment(2, 4, 30) === false) // false
+      })()
+    </script>
+  </body>
+</html>
