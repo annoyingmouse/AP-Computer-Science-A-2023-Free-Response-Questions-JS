@@ -17,10 +17,8 @@
             return this.periods[period][minute] === 0
           }
           resetAvailability(){
-            for(let period = 0; period < 8; period++){
-              for(let minute = 0; minute < 60; minute++){
-                this.periods[period][minute] = 0
-              }
+            for(let period of this.periods){
+              period.fill(0)
             }
           }
           reserveBlock(period, startMinute, duration){
