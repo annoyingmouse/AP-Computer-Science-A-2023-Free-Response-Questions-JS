@@ -9,32 +9,15 @@
     <p>Open the developer tools</p>
     <script>
       (()=>{
-        const fillMinutes = (minutes) => {
-          const arr = []
-          for (let i = 0; i < minutes; i++) {
-            arr.push(0)
-          }
-          return arr
-        }
         class AppointmentBook{
           constructor(){
-            this.periods = [
-              fillMinutes(60),
-              fillMinutes(60),
-              fillMinutes(60),
-              fillMinutes(60),
-              fillMinutes(60),
-              fillMinutes(60),
-              fillMinutes(60),
-              fillMinutes(60),
-              fillMinutes(60)
-            ]
+            this.periods = Array.from({length: 8}, () => Array.from({length: 60}, () => 0))
           }
           isMinuteFree(period, minute){
             return this.periods[period][minute] === 0
           }
           resetAvailability(){
-            for(let period = 0; period < 9; period++){
+            for(let period = 0; period < 8; period++){
               for(let minute = 0; minute < 60; minute++){
                 this.periods[period][minute] = 0
               }
